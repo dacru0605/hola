@@ -1,30 +1,54 @@
 classDiagram
     class Main {
-        +x
+        +void main()
     }
 
     class SNIESController {
-        +x
+        -GestorCSV gestorCSV
+        -List~ProgramaAcademico~ programas
+        +void cargarProgramas(String ruta)
+        +void procesarDatos(int inicio, int fin)
+        +void generarResultados()
+        +void mostrarConsolidadoPorNivel(String nivel)
+        +void filtrarProgramas(String palabraClave, String nivel)
     }
 
     class GestorCSV {
-        +x
+        +List~ProgramaAcademico~ leerProgramas(String ruta)
+        +List~Consolidado~ leerDatosHistoricos(String ruta, int inicio, int fin)
+        +void escribirResultados(String ruta, List~ProgramaAcademico~ programas)
+        +void exportarDatos(String ruta, List~Consolidado~ datos)
     }
 
     class ProgramaAcademico {
-        +x
+        +int codigo
+        +String nombre
+        +String nivelFormacion
+        +Consolidado consolidado
+        +void consolidarDatos(Consolidado datos)
     }
 
     class Consolidado {
-        +x
+        +int ano?
+        +int inscritos
+        +int admitidos
+        +int primeraMatricula
+        +int matriculados
+        +int graduados
+        +float variacionPorcentual
+        +void calcularVariacion(Consolidado anterior)
     }
 
     class View {
-        +x
+        +void mostrarMenu()
+        +int obtenerOpcion()
+        +int obtenerAnio()
+        +String obtenerNivel()
+        +String obtenerPalabraClave()
     }
 
-    Main --> View
+    Main --> SNIESController
     SNIESController --> GestorCSV
     SNIESController --> ProgramaAcademico
     ProgramaAcademico --> Consolidado
-    View --> SNIESController
+    SNIESController --> View
